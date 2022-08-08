@@ -4,6 +4,14 @@ import { useState } from 'react';
 export default function index() {
 
   const [todos, setTodos] = useState([]);
+  const [input, setInput] = useState("");
+
+  const addTodo = (e) => {
+    e.preventDefault();
+    console.log(`This is the input ${input}`);
+    setTodos([...todos, input]);
+    setInput("");
+  };
   return (
 
     <div>
@@ -16,13 +24,19 @@ export default function index() {
 
           <div className="text-3xl font-bold text-slate-700">Welcome to My Todo App</div>
 
-          <input className="border-[1.4px] rounded-sm h-8 mt-10 pl-2 w-80 border-slate-600"
-            placeholder="Enter Your Task" type="text" />
+          <form>
+            <input value={input} onChange={e => setInput(e.target.value)} className="border-[1.4px] rounded-sm h-8 mt-10 pl-2 w-80 border-slate-600"
+              placeholder="Enter Your Task" type="text" />
 
-          <button className="mt-4 border p-2 rounded-sm text-center bg-slate-700 text-white">Submit</button>
+            <button type="submit" onClick={addTodo} className="mt-4 border p-2 rounded-sm text-center bg-slate-700 text-white">Add Todo</button>
+          </form>
 
           <div className="text-2xl font-semibold text-gray-600 mt-4 underline">List of Tasks</div>
-          <p className="text-lg mt-3">Here My Tasks</p>
+          {todos.map(todo => (
+            <p className="text-lg mt-3">{todo}</p>
+          ))}
+
+
         </div>
       </div>
     </div>
